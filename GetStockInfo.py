@@ -27,7 +27,6 @@ def download_stock_codes(market=None, delisted=False):
     return df
 
 if __name__ == "__main__":
-    print(1)
     kosdaq_stocks = download_stock_codes('kosdaq')
     kosdaq_stocks.head()
 
