@@ -1,0 +1,35 @@
+2020-06-03
+    DONE
+        git활성화
+        python기존코드 활성화
+        mysql db 설치    (service mysql start => mysql -p)
+                        (SELECT Host,User,plugin,authentication_string FROM mysql.user;)
+        
+    TODO
+        파이썬 mysql연결        https://yurimkoo.github.io/python/2019/09/14/connect-db-with-python.html
+        기본 설정               https://yurimkoo.github.io/db/2019/08/24/mysql-juso-db.html
+
+
+2020-06-14
+    DONE
+        mysql utf-8 설정       https://nesoy.github.io/articles/2017-05/mysql-UTF8
+        mysql user 보안설정     https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost
+        테이블 권한             (CREATE DATABASE study_db default CHARACTER SET UTF8;
+                              GRANT ALL PRIVILEGES ON study_db.* TO study_user@localhost IDENTIFIED BY 'study';)
+        비밀번호 설정            alter user 'root'@'localhost' identified with mysql_native_password by 'pw123'; 
+                              flush privileges;
+       
+       
+        파일경로 설정            https://sssunho.tistory.com/56 파일경로 실패함 추후 시스템 오류시https://www.gldigital.co.kr/mysql/mysql-data-directory-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0 체크
+                              -> cp stock.csv /workspace/StockProject2/Stock.csv 으로 사용 (바로가기 설정함) http://magic.wickedmiso.com/130
+                             
+        SELECT * INTO OUTFILE 'stock.csv' FIELDS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY '\\' LINES TERMINATED BY '\n' FROM Kospi_info;
+
+    TODO
+        기존코드 새로운 db에 맞게 수정
+    cf. vi 명령어     https://blockdmask.tistory.com/25
+
+2020-06-14
+    DONE
+    
+    TODO
