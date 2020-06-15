@@ -434,7 +434,7 @@ def Get_DB_info(Sector):
     return stock
 
 
-def Insert_DB_Qfinance(Sector):
+def Insert_DB_Qfinance(sector):
     kospi = Get_DB_info("Kospi_info")
     kosdaq = Get_DB_info("Kosdaq_info")
     konex = Get_DB_info("Konex_info")
@@ -444,7 +444,7 @@ def Insert_DB_Qfinance(Sector):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
 
-    if(Sector % 2 is 1):
+    if(sector % 2 is 1):
         for i in kospi:
             temp = GF.StockFinance(i['Code'])
             temp.D_NetQuarterFinance()
@@ -486,7 +486,7 @@ def Insert_DB_Qfinance(Sector):
     
     con.close()
 
-def Insert_DB_Afinance():
+def Insert_DB_Afinance(sector):
     kospi = Get_DB_info("Kospi_info")
     kosdaq = Get_DB_info("Kosdaq_info")
     konex = Get_DB_info("Konex_info")
@@ -495,43 +495,49 @@ def Insert_DB_Afinance():
     
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
-
-    for i in kospi:
-        temp = GF.StockFinance(i['Code'])
-        temp.D_AnnualFinance()
-        for j in temp.D_Y:
-            record = [i['Name'],i['Code'],j]
-            record.extend(temp.D_Y[j].values())
-            if len(record) == 28:
-                cursor.execute("INSERT INTO Kospi_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", record)
-                print(record)
-        del(temp)
-    con.commit()
+    if(sector % 2 is 1):
+        for i in kospi:
+            temp = GF.StockFinance(i['Code'])
+            temp.D_AnnualFinance()
+            for j in temp.D_Y:
+                record = [i['Name'],i['Code'],j]
+                record.extend(temp.D_Y[j].values())
+                if len(record) == 28:
+                    cursor.execute("INSERT INTO Kospi_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", record)
+                    print(record)
+            del(temp)
+        con.commit()
     
-    for i in kosdaq:
-        temp = GF.StockFinance(i['Code'])
-        temp.D_AnnualFinance()
-        for j in temp.D_Y:
-            record = [i['Name'],i['Code'],j]
-            record.extend(temp.D_Y[j].values())
-            if len(record) == 28:
-                cursor.execute("INSERT INTO Kosdaq_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
-                print(record)
-        del (temp)
-    con.commit()
+    sector /= 2
+    sector = int(sector)
+    if (sector % 2 is 1):
+        for i in kosdaq:
+            temp = GF.StockFinance(i['Code'])
+            temp.D_AnnualFinance()
+            for j in temp.D_Y:
+                record = [i['Name'],i['Code'],j]
+                record.extend(temp.D_Y[j].values())
+                if len(record) == 28:
+                    cursor.execute("INSERT INTO Kosdaq_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
+                    print(record)
+            del (temp)
+        con.commit()
     
-    for i in konex:
-        temp = GF.StockFinance(i['Code'])
-        temp.D_AnnualFinance()
-        for j in temp.D_Y:
-            record = [i['Name'], i['Code'], j]
-            record.extend(temp.D_Y[j].values())
-            if len(record) == 28:
-                cursor.execute("INSERT INTO Konex_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
-                print(record)
-        del (temp)
-    con.commit()
-    
+    sector /= 2
+    sector = int(sector)
+    if (sector % 2 is 1):
+        for i in konex:
+            temp = GF.StockFinance(i['Code'])
+            temp.D_AnnualFinance()
+            for j in temp.D_Y:
+                record = [i['Name'], i['Code'], j]
+                record.extend(temp.D_Y[j].values())
+                if len(record) == 28:
+                    cursor.execute("INSERT INTO Konex_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
+                    print(record)
+            del (temp)
+        con.commit()
+        
     con.close()
 
 def Insert_DB_invest(parayear,sector):
