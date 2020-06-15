@@ -16,7 +16,7 @@ class StockFinance:
         self.data = self.res.read()
         self.soup = BeautifulSoup(self.data, 'html.parser')
         self.Price = {}
-        self.D_Y = {}
+        self.D_Y = {}        
         self.D_A = {}
         self.B_Y = {}
         self.B_A = {}
@@ -85,7 +85,7 @@ class StockFinance:
                             if self.text:
                                 self.text = self.text.replace("\xa0", "")
                             self.D_Y[self.subperiod[j].find("span").string][self.text] = self.subFinaceValues[j].string
-        print(self.D_Y)
+        #print(self.D_Y)
 
     def D_NetQuarterFinance(self):
         self.highlight_D_A = self.soup.find("div", {"id": "highlight_D_Q", "class": "um_table"})
