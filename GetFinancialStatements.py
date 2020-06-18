@@ -32,8 +32,8 @@ class StockFinance:
             if(i[1] is '/'):
                 self.Price["Price"] = self.Pricetag[0:i[0]]
                 self.Price["Gap"] = self.Pricetag[i[0]+2:]
-                print(self.Price["Price"])
-                print(self.Price["Gap"])
+                #print(self.Price["Price"])
+                #print(self.Price["Gap"])
 
     #연결
     def D_AnnualFinance(self):
