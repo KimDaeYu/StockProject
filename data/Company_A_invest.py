@@ -14,32 +14,26 @@ execute_size = 100
 
 def Get_invest_indicators(recent_data, totalnum, price, year):
     # PER
-    record = [" "]
+    record = ["NAN" for i in range(4)]
     if (recent_data[0][0] != "\xa0"):
-        if (recent_data[0][0] == "0" or totalnum == 0):
-            pass
-        PER = float(price / float(int(recent_data[0][0].replace(',', '')) * 100000 / totalnum))
-        record[0] = str(round(PER, 2))
+        if (recent_data[0][0] != "0" or totalnum == 0):
+            PER = float(price / float(int(recent_data[0][0].replace(',', '')) * 100000 / totalnum))
+            record[0] = str(round(PER, 2))
 
     # PBR
-    record.extend(" ")
     if (recent_data[0][2] != "\xa0" and recent_data[0][3] != "\xa0"):
-        if (recent_data[0][2] == recent_data[0][3]):
-            pass
-        PBR = float(price / float((int(recent_data[0][2].replace(',', '')) - int(
-            recent_data[0][3].replace(',', ''))) * 100000 / totalnum))
-        record[1] = str(round(PBR, 2))
+        if (recent_data[0][2] != recent_data[0][3]):
+            PBR = float(price / float((int(recent_data[0][2].replace(',', '')) - int(
+                recent_data[0][3].replace(',', ''))) * 100000 / totalnum))
+            record[1] = str(round(PBR, 2))
 
     # PSR
-    record.extend(" ")
     if (recent_data[0][4] != "\xa0"):
-        if (recent_data[0][4] == "0"):
-            pass
-        PSR = float(price / float(int(recent_data[0][4].replace(',', '')) * 100000 / totalnum))
-        record[2] = str(round(PSR, 2))
+        if (recent_data[0][4] != "0"):
+            PSR = float(price / float(int(recent_data[0][4].replace(',', '')) * 100000 / totalnum))
+            record[2] = str(round(PSR, 2))
 
     # Year
-    record.extend(" ")
     record[3] = year
     
     return record
@@ -103,14 +97,16 @@ def Insert_DB_invest(parayear, sector):
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
                     totalnum = int(recent_data[0][1].replace(',', ''))
-
+                
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                kospi_record.extend(" ")
-                kospi_record[len(kospi_record)-1] = record
-                del (temp)
-
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)      
+                kospi_record.append(record)
+                del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
+                    kospi_record = []
+                    con.commit()
+        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
         con.commit()
 
     sector /= 2
@@ -153,11 +149,14 @@ def Insert_DB_invest(parayear, sector):
 
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                kosdaq_record.extend(" ")
-                kosdaq_record[len(kosdaq_record)-1] = record
+                kosdaq_record.append(record)
                 del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
+                    kosdaq_record = []
+                    con.commit()
 
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)     
+        cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
         con.commit()
 
     sector /= 2
@@ -199,11 +198,14 @@ def Insert_DB_invest(parayear, sector):
                     
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                konex_record.extend(" ")
-                konex_record[len(konex_record)-1] = record
-                del (temp)
-                
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
+                konex_record.append(record)
+                del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
+                    konex_record = []
+                    con.commit()
+
+        cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
         con.commit()
     con.close()
 
@@ -257,11 +259,13 @@ def Insert_DB_exp_invest(parayear,sector):
 
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                kospi_record.extend(" ")
-                kospi_record[len(kospi_record)-1] = record
-                del (temp)
-
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)      
+                kospi_record.append(record)
+                del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
+                    kospi_record = []
+                    con.commit()
+        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
         con.commit()
 
     sector /= 2
@@ -302,11 +306,14 @@ def Insert_DB_exp_invest(parayear,sector):
 
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                kosdaq_record.extend(" ")
-                kosdaq_record[len(kosdaq_record)-1] = record
+                kosdaq_record.append(record)
                 del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
+                    kosdaq_record = []
+                    con.commit()
 
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)     
+        cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
         con.commit()
 
     sector /= 2
@@ -347,11 +354,14 @@ def Insert_DB_exp_invest(parayear,sector):
                                            
                 record[len(record):] = Get_invest_indicators(recent_data, totalnum, price, year)
                 print(record)
-                konex_record.extend(" ")
-                konex_record[len(konex_record)-1] = record
-                del (temp)
+                konex_record.append(record)
+                del(temp)
+                if(num % execute_size == execute_size-1):
+                    cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
+                    konex_record = []
+                    con.commit()
                 
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
+        cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
         con.commit()
     con.close()
 

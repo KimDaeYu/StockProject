@@ -40,6 +40,7 @@ def Insert_DB_Qfinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Kospi_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.executemany("INSERT INTO Kospi_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
 
@@ -61,6 +62,7 @@ def Insert_DB_Qfinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Kosdaq_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.executemany("INSERT INTO Kosdaq_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
 
@@ -82,6 +84,7 @@ def Insert_DB_Qfinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Kosdaq_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.execute("INSERT INTO Konex_Qfinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
     con.close()
@@ -107,6 +110,7 @@ def Insert_DB_Afinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Kospi_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.executemany("INSERT INTO Kospi_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
 
@@ -128,6 +132,7 @@ def Insert_DB_Afinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Kosdaq_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.executemany("INSERT INTO Kosdaq_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
 
@@ -149,6 +154,7 @@ def Insert_DB_Afinance(sector):
             if(num % execute_size == execute_size-1):
                 cursor.executemany("INSERT INTO Konex_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
                 data = []
+                con.commit()
         cursor.execute("INSERT INTO Konex_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", data)
         con.commit()
     con.close()
