@@ -130,8 +130,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-        PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
          );""")
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kospi_Afinance` (
@@ -162,8 +161,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-          PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
             );""")
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kospi_invest_info` (
@@ -172,8 +170,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-         PRIMARY KEY (`Code`)
+        `PSR`	TEXT
            );  """)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kospi_exp_invest_info` (
@@ -182,8 +179,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-          PRIMARY KEY (`Code`)
+        `PSR`	TEXT
             );  """)
         con.commit()
     
@@ -200,8 +196,7 @@ def Create_DB(sector):
         `Settlement_Date`	TEXT,
         `Representative_Name`	TEXT,
         `Homepage`	TEXT,
-        `Region`	TEXT,
-         PRIMARY KEY (`Code`)
+        `Region`	TEXT
           ); """)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kosdaq_Qfinance` (
@@ -232,8 +227,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-         PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
          );""")
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kosdaq_Afinance` (
@@ -264,8 +258,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-         PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
          );""")       
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kosdaq_invest_info` (
@@ -274,8 +267,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-         PRIMARY KEY (`Code`)
+        `PSR`	TEXT
          ); """)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kosdaq_exp_invest_info` (
@@ -284,8 +276,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-          PRIMARY KEY (`Code`)
+        `PSR`	TEXT
           ); """)
         con.commit()
     sector /= 2
@@ -301,8 +292,7 @@ def Create_DB(sector):
         `Settlement_Date`	TEXT,
         `Representative_Name`	TEXT,
         `Homepage`	TEXT,
-        `Region`	TEXT,
-          PRIMARY KEY (`Code`)
+        `Region`	TEXT
             );  """)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Konex_Qfinance` (
@@ -333,8 +323,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-         PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
          );""")
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Konex_Afinance` (
@@ -365,8 +354,7 @@ def Create_DB(sector):
         `PER`	TEXT,
         `PBR`	TEXT,
         `NumOutstandingShares`	TEXT,
-        `DividendYieldRatio`	TEXT,
-          PRIMARY KEY (`Code`)
+        `DividendYieldRatio`	TEXT
           );""")     
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Konex_invest_info` (
@@ -375,8 +363,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-         PRIMARY KEY (`Code`)
+        `PSR`	TEXT
          ); """)
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Konex_exp_invest_info` (
@@ -385,8 +372,7 @@ def Create_DB(sector):
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
-        `PSR`	TEXT,
-         PRIMARY KEY (`Code`)
+        `PSR`	TEXT
          ); """)
         con.commit()
     con.close()
@@ -404,7 +390,7 @@ def Insert_DB_info(sector):
     
     if (sector % 2 is 1):
         for i in range(len(kospi_stocks)):
-            #print(list(kosdaq_stocks.loc[i].fillna('')))
+            print(list(kosdaq_stocks.loc[i].fillna('')))
             cursor.execute("INSERT INTO Kospi_info VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)", tuple(kospi_stocks.loc[i].fillna('')))
             con.commit()
             
@@ -412,6 +398,7 @@ def Insert_DB_info(sector):
     sector = int(sector)
     if (sector % 2 is 1):
         for i in range(len(kosdaq_stocks)):
+            print(list(kosdaq_stocks.loc[i].fillna('')))
             cursor.execute("INSERT INTO Kosdaq_info VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)", tuple(kosdaq_stocks.loc[i].fillna('')))
             con.commit()
             
@@ -419,6 +406,7 @@ def Insert_DB_info(sector):
     sector = int(sector)
     if (sector % 2 is 1):
         for i in range(len(konex_stocks)):
+            print(list(kosdaq_stocks.loc[i].fillna('')))
             cursor.execute("INSERT INTO Konex_info VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s)", tuple(konex_stocks.loc[i].fillna('')))
             con.commit()
     con.close()
@@ -487,16 +475,12 @@ def Insert_DB_Qfinance(sector):
     con.close()
 
 def Insert_DB_Afinance(sector):
-    kospi = Get_DB_info("Kospi_info")
-    kosdaq = Get_DB_info("Kosdaq_info")
-    konex = Get_DB_info("Konex_info")
-    #print(kospi)
-    
-    
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
     if(sector % 2 is 1):
-        for i in kospi:
+        kospi = Get_DB_info("Kospi_info")
+        for num , i in enumerate(kospi):
+            print("[{} / {}] {}".format(num,len(kospi),i["Code"]))
             temp = GF.StockFinance(i['Code'])
             temp.D_AnnualFinance()
             for j in temp.D_Y:
@@ -504,14 +488,16 @@ def Insert_DB_Afinance(sector):
                 record.extend(temp.D_Y[j].values())
                 if len(record) == 28:
                     cursor.execute("INSERT INTO Kospi_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)", record)
-                    print(record)
+                    #print(record)
             del(temp)
         con.commit()
     
     sector /= 2
     sector = int(sector)
     if (sector % 2 is 1):
-        for i in kosdaq:
+        kosdaq = Get_DB_info("Kosdaq_info")
+        for num , i in enumerate(kosdaq):
+            print("[{} / {}] {}".format(num,len(kosdaq),i["Code"]))
             temp = GF.StockFinance(i['Code'])
             temp.D_AnnualFinance()
             for j in temp.D_Y:
@@ -519,14 +505,16 @@ def Insert_DB_Afinance(sector):
                 record.extend(temp.D_Y[j].values())
                 if len(record) == 28:
                     cursor.execute("INSERT INTO Kosdaq_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
-                    print(record)
+                    #print(record)
             del (temp)
         con.commit()
     
     sector /= 2
     sector = int(sector)
     if (sector % 2 is 1):
-        for i in konex:
+        konex = Get_DB_info("Konex_info")
+        for num , i in enumerate(konex):
+            print("[{} / {}] {}".format(num,len(konex),i["Code"]))
             temp = GF.StockFinance(i['Code'])
             temp.D_AnnualFinance()
             for j in temp.D_Y:
@@ -534,17 +522,13 @@ def Insert_DB_Afinance(sector):
                 record.extend(temp.D_Y[j].values())
                 if len(record) == 28:
                     cursor.execute("INSERT INTO Konex_Afinance VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",record)
-                    print(record)
+                    #print(record)
             del (temp)
         con.commit()
         
     con.close()
 
 def Insert_DB_invest(parayear,sector):
-    kospi = Get_DB_info("Kospi_info")
-    kosdaq = Get_DB_info("Kosdaq_info")
-    konex = Get_DB_info("Konex_info")
-
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
     totalnum = 0
@@ -557,6 +541,7 @@ def Insert_DB_invest(parayear,sector):
 
     
     if(sector % 2 is 1):
+        kospi = Get_DB_info("Kospi_info")
         for num , i in enumerate(kospi):
             print("[{} / {}] {}".format(num,len(kospi),i["Code"]))
             temp = GF.StockFinance(i["Code"])
@@ -574,20 +559,18 @@ def Insert_DB_invest(parayear,sector):
             recent_data = cursor.fetchall()
             if (len(recent_data) is not 0):
                 recent_data[0] = list(recent_data[0].values())
-                
-                # if(len(kospi_record) is 5):            #테스트용
-                #     break
-                
-                if (recent_data[0][0] is "0" or recent_data[0][1] is "\xa0"):
+                if (recent_data[0][0] == "0" or recent_data[0][1] == "\xa0"):
                     year =  str(int(year) - 1) #추후에 year값도 저장
                     cursor.execute(
                         "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kospi_Afinance WHERE Code = %s AND Date like %s",
                         (i["Code"], year + "%")
                         )
                     recent_data2 = cursor.fetchall()
-                    if (recent_data2[0][1] is "0" or recent_data2[0][1] is "\xa0"):
-                        continue
                     recent_data2[0] = list(recent_data2[0].values())
+                    print(recent_data2)
+                    if (recent_data2[0][1] == "0" or recent_data2[0][1] == "\xa0"):
+                        print("passed : have not data")
+                        continue
                     recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
@@ -634,7 +617,7 @@ def Insert_DB_invest(parayear,sector):
     sector /= 2
     sector = int(sector)
     if (sector % 2 is 1):
-        
+        kosdaq = Get_DB_info("Kosdaq_info")
         for num,i in enumerate(kosdaq):
             print("[{} / {}] {}".format(num,len(kosdaq),i['Code']))
             temp = GF.StockFinance(i["Code"])
@@ -660,9 +643,9 @@ def Insert_DB_invest(parayear,sector):
                         (i["Code"], year + "%")
                         )
                     recent_data2 = cursor.fetchall()
+                    recent_data2[0] = list(recent_data2[0].values())
                     if (recent_data2[0][1] is "0" or recent_data2[0][1] is "\xa0"):
                         continue
-                    recent_data2[0] = list(recent_data2[0].values())
                     recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
@@ -710,7 +693,7 @@ def Insert_DB_invest(parayear,sector):
     sector /= 2
     sector = int(sector)
     if (sector % 2 is 1):
-        
+        konex = Get_DB_info("Konex_info")
         for num,i in enumerate(konex):
             print("[{} / {}] {}".format(num,len(konex),i['Code']))
             temp = GF.StockFinance(i["Code"])
@@ -735,9 +718,9 @@ def Insert_DB_invest(parayear,sector):
                         (i["Code"], year + "%")
                     )
                     recent_data2 = cursor.fetchall()
+                    recent_data2[0] = list(recent_data2[0].values())
                     if (recent_data2[0][1] is "0" or recent_data2[0][1] is "\xa0"):
                         continue
-                    recent_data2[0] = list(recent_data2[0].values())
                     recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
@@ -1014,11 +997,11 @@ def Insert_DB_exp_invest(parayear,sector):
 
 
 if __name__ == "__main__":
-    #Reset_DB()
-    # Create_DB()
-    # Insert_DB_info()
+    #Reset_DB(7)
+    #Create_DB(KOSPI+KOSDAQ)
+    #Insert_DB_info(KOSPI+KOSDAQ)
     #Insert_DB_Afinance(KOSDAQ)
-    Insert_DB_invest(2019,KOSDAQ)
+    Insert_DB_invest(2019,KOSPI)
     #Insert_DB_exp_invest(2019, KOSDAQ)
 
 
