@@ -2,14 +2,16 @@
     DONE
         git활성화
         python기존코드 활성화
-        mysql db 설치    (service mysql start => mysql -p)
+        mysql db 설치    (service mysql start => mysql -p) 비번 12345678
                         (SELECT Host,User,plugin,authentication_string FROM mysql.user;)
         
     TODO
         파이썬 mysql연결        https://yurimkoo.github.io/python/2019/09/14/connect-db-with-python.html
         기본 설정               https://yurimkoo.github.io/db/2019/08/24/mysql-juso-db.html
-
-
+        기본 사용법             https://pat.im/624
+        도큐먼트                https://dev.mysql.com/doc/refman/8.0/en/cast-functions.html
+        기본 팁 효율(execute)   https://yurimkoo.github.io/python/2019/09/14/connect-db-with-python.html
+        중복 문제 해결          https://til.songyunseop.com/mysql/some_case_insert_with_duplicated_key.html
 2020-06-14
     DONE
         mysql utf-8 설정       https://nesoy.github.io/articles/2017-05/mysql-UTF8
@@ -32,13 +34,35 @@
 
 2020-06-14
     DONE
-        Database.py        모두 구현 체크는 못함 컴퓨터가 너무 느림 (체크완료)
+        Database.py        모두 구현 체크는 못함 컴퓨터가 너무 느림 (체크완료)    완료
         
     TODO
-        Database.py -> Insert_DB_exp_invest 함수구현?
-        Database.py -> Annual만 구현함, Quarter구현 필요
+        Database.py -> Insert_DB_exp_invest 함수구현?    완료
+        Database.py -> Annual만 구현함, Quarter구현 필요     진행중
         
 2020-06-18
     DONE
         
     TODO
+        Database.py -> commit 100개 단위로 할지 하나씩 할지 결정    완료
+        Database.py -> csv추출 함수 구현
+        Database.py -> 함수 함수화로 간결하게 정리
+2020-08-28
+    DONE
+        테이블마다 CODE로 primary를 설정한 오류 해결
+    TODO
+        테이블 입력 효율성 증가 excutemany키워드 이용
+        
+2020-08-29
+    모듈화 폴더        https://velog.io/@devmin/%ED%8C%8C%EC%9D%B4%EC%8D%AC-import%EA%B0%80-module%EA%B3%BC-package-%EB%A5%BC-%EC%B0%BE%EC%95%84%EA%B0%80%EB%8A%94-%EA%B2%BD%EB%A1%9C
+    invest정보 입력시 예전 정보 일경우 키워드로 표시 구조변환도 고려    완료 year값 추가
+    invest구하는 함수에서 is로 된것들 ==으로 수정필요, havenot이면 뛰어넘어가는거 필요    완료
+
+2020-08-30
+    700부터 다시 python3 Company_A_invest.py P 2019 2
+
+
+2020-08-31
+    react개발 시작
+
+        

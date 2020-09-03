@@ -1,0 +1,14 @@
+2020-08-31
+    https://m.blog.naver.com/PostView.nhn?blogId=wideeyed&logNo=221571623994&proxyReferer=https:%2F%2Fwww.google.co.kr%2F
+        pip install flask-restplus
+        pip install requests
+    
+    실행법
+        FLASK_APP=app.py FLASK_ENV=development flask run --port 8080
+        
+    기본 사용법
+        https://opentutorials.org/module/3669/22003
+
+2020-09-03
+    talib설치
+        https://gist.github.com/brunocapelao/ed1b4f566fccf630e1fb749e5992e964
