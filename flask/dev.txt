@@ -12,3 +12,8 @@
 2020-09-03
     talib설치
         https://gist.github.com/brunocapelao/ed1b4f566fccf630e1fb749e5992e964
+        
+        
+        https://plotly.com/python/configuration-options/
+        https://www.google.com/search?q=plotly+python+output_type
+        https://github.com/icaromedeiros/dash/tree/dirty

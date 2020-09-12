@@ -19,7 +19,7 @@ def Get_invest_csv(sector, date = 0):
            SELECT * INTO OUTFILE %s FIELDS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY '\\\\' LINES TERMINATED BY '\\n' FROM """ + table + """;
           """, [filename])
         con.commit()
-        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/StockProject2/execl/" + str(date) + '_' + filename)
+        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/stock_project3/execl/" + str(date) + '_' + filename)
         file = '/var/lib/mysql/study_db/' + filename
         if os.path.isfile(file):
             os.remove(file)
@@ -32,7 +32,7 @@ def Get_invest_csv(sector, date = 0):
         cursor.execute("""
            SELECT * INTO OUTFILE %s FIELDS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY '\\\\' LINES TERMINATED BY '\\n' FROM """ + table + """;
           """, [filename])
-        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/StockProject2/execl/" + str(date) + '_' + filename)
+        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/stock_project3/execl/" + str(date) + '_' + filename)
         file = '/var/lib/mysql/study_db/' + filename
         if os.path.isfile(file):
             os.remove(file)
@@ -44,7 +44,7 @@ def Get_invest_csv(sector, date = 0):
         cursor.execute("""
            SELECT * INTO OUTFILE %s FIELDS TERMINATED BY ',' ENCLOSED BY '"' ESCAPED BY '\\\\' LINES TERMINATED BY '\\n' FROM """ + table + """;
           """, [filename])
-        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/StockProject2/execl/" + str(date) + '_' + filename)
+        shutil.copy("/var/lib/mysql/" + Get_DB() + "/" + filename,                                         "/workspace/stock_project3/execl/" + str(date) + '_' + filename)
         file = '/var/lib/mysql/study_db/' + filename
         if os.path.isfile(file):
             os.remove(file)

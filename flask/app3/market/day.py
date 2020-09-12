@@ -10,7 +10,7 @@ def serial_market(code = "005930"):
     df = pd.DataFrame()
     url = 'http://finance.naver.com/item/sise_day.nhn?code={code}'.format(code = code)
 
-    for page in range(1, 21):
+    for page in range(1, 10):
         pg_url = '{url}&page={page}'.format(url=url, page=page)
         df = df.append(pd.read_html(pg_url, header=0)[0], ignore_index=True)
     df = df.dropna()

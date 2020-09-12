@@ -4,7 +4,7 @@ use_db = 'study_db'
 
 def Connect_DB():
     con = pymysql.connect(
-        user='stock', 
+        user='root', 
         passwd='12345678',
         host='127.0.0.1', 
         db= use_db, 

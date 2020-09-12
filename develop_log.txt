@@ -14,11 +14,13 @@
         중복 문제 해결          https://til.songyunseop.com/mysql/some_case_insert_with_duplicated_key.html
 2020-06-14
     DONE
+                            
+                              https://nickjoit.tistory.com/144
         mysql utf-8 설정       https://nesoy.github.io/articles/2017-05/mysql-UTF8
         mysql user 보안설정     https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost
         테이블 권한             (CREATE DATABASE study_db default CHARACTER SET UTF8;
                               GRANT ALL PRIVILEGES ON study_db.* TO study_user@localhost IDENTIFIED BY 'study';)
-        비밀번호 설정            alter user 'root'@'localhost' identified with mysql_native_password by 'pw123'; 
+        비밀번호 설정            alter user 'root'@'localhost' identified with mysql_native_password by '12345678'; 
                               flush privileges;
        
        
@@ -64,5 +66,8 @@
 
 2020-08-31
     react개발 시작
+    
+    
+    https://7stocks.tistory.com/66
 
         

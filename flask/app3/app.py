@@ -19,9 +19,9 @@ app = Flask(__name__)
 def change_features():
     start = time.time()
     code = request.args.get('code', " ")
-    chart2.print_chart(code)
+    chart = chart2.print_chart(code)
     print("total time :", time.time() - start)
-    return render_template('stock.html')
+    return render_template('stock.html',chart=chart)
 
 @app.route("/")
 def hello():

@@ -4,16 +4,45 @@ import plotly.graph_objs as go
 import plotly.express as px
 import plotly.offline as po
 
-from . import day
-
+import plotly
 # import talib as ta
+
+import requests
 import time
+import pandas as pd
+import json 
+
+from bs4 import BeautifulSoup as bs
+from datetime import datetime
 
 
+def serial_market(code = "005930"):
+    df = pd.DataFrame()
+    url = 'http://finance.naver.com/item/sise_day.nhn?code={code}'.format(code = code)
+
+    for page in range(1, 10):
+        pg_url = '{url}&page={page}'.format(url=url, page=page)
+        df = df.append(pd.read_html(pg_url, header=0)[0], ignore_index=True)
+    df = df.dropna()
+    df.head()
+
+    df = df.rename(columns= {'날짜': 'Date', '종가': 'Close', '전일비': 'Diff', '시가': 'Open', '고가': 'High', '저가': 'Low', '거래량': 'Vol'}) 
+
+    # 데이터의 타입을 int형으로 바꿔줌
+    df[['Close', 'Diff', 'Open', 'High', 'Low', 'Vol']] \
+     = df[['Close', 'Diff', 'Open', 'High', 'Low', 'Vol']].astype(int)
+
+    # 컬럼명 'date'의 타입을 date로 바꿔줌
+    df['Date'] = pd.to_datetime(df['Date'])
+
+    # 일자(date)를 기준으로 오름차순 정렬
+    df = df.sort_values(by=['Date'], ascending=True)
+
+    return df
 
 def print_chart(code = "005930"):
     start = time.time() 
-    df = day.serial_market(code)
+    df = serial_market(code)
     print("get df time :", time.time() - start)
     """
     columns= {'날짜': 'date', '종가': 'close', '전일비': 'diff', '시가': 'open', '고가': 'high', '저가': 'low', '거래량': 'volume'}
@@ -22,11 +51,11 @@ def print_chart(code = "005930"):
     MA5 = df['Close'].rolling(window=5).mean()
     df.insert(len(df.columns), "MA5", MA5)
     MA20 = df['Close'].rolling(window=20).mean()
-    df.insert(len(df.columns), "MA20", MA5)
+    df.insert(len(df.columns), "MA20", MA20)
     MA60 = df['Close'].rolling(window=60).mean()
-    df.insert(len(df.columns), "MA60", MA5)
+    df.insert(len(df.columns), "MA60", MA60)
     MA120 = df['Close'].rolling(window=120).mean()
-    df.insert(len(df.columns), "MA120", MA5)
+    df.insert(len(df.columns), "MA120", MA120)
     
     # df['MA5'] = ta.SMA(df['Close'], timeperiod=5)
     # df['MA20'] = ta.SMA(df['Close'], timeperiod=20)
@@ -89,13 +118,13 @@ def print_chart(code = "005930"):
         x=df['Date'],
         y=df['MA120'],
         mode='lines',
-        name='ma60',
+        name='ma120',
         line=dict(
             color=('rgb(0, 255, 0)'),
             width=1)
     )
     
-    data = [trace, ma5, ma20, ma60, ma120]
+    data = [ma5, ma20, ma60, ma120,trace]
     # data = [celltrion]
     
     layout = go.Layout(
@@ -118,7 +147,7 @@ def print_chart(code = "005930"):
 
                 yaxis=dict(
                     scaleanchor="x",
-                    domain=[0.6, 1],
+                    domain=[0, 0.8],
 
                     # tickmode='linear',
                     # ticks='outside',
@@ -131,26 +160,22 @@ def print_chart(code = "005930"):
 
                     showline=True
                 ),
-                yaxis4=dict(
-                    scaleanchor="x",
-                    # range=[10, 100],
-                    domain=[0.15, 0.3],
-                    showline=True
-                ),
-                yaxis5=dict(
-                    scaleanchor="x",
-                    # range=[10, 100],
-                    domain=[0.07, 0.15],
-                    showline=True
-                )
-                ,
 
                 showlegend=False
             )
-
-    fig = go.Figure(data=data, layout=layout)
-    po.plot(fig, filename='templates/stock.html',auto_open=False)
-    print("get html time :", time.time() - start)
-    # fig.write_html("./templates/chart.html")
-    return
+    
+    
+    graphJSON = json.dumps(data, cls=plotly.utils.PlotlyJSONEncoder)
+    
+    layoutJSON = json.dumps(layout, cls=plotly.utils.PlotlyJSONEncoder)
+    # fig = go.Figure(data=data, layout=layout)
+    
+    # config=dict(displaylogo=False,
+    #              modeBarButtonsToRemove=['sendDataToCloud'])
+    #po.plot(fig, filename='templates/stock.html',auto_open=False)
+    
+    return graphJSON, layoutJSON
+    # print("get html time :", time.time() - start)
+    # # fig.write_html("./templates/chart.html")
+    # return
 

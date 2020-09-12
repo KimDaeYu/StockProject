@@ -375,4 +375,4 @@ if __name__ == "__main__":
         if(sys.argv[1] == 'E' or sys.argv[1] == 'Expect'):
             Insert_DB_exp_invest(int(sys.argv[2]),int(sys.argv[3]))
     else:
-        print("plese set three argument :: Present(P), Expect(E) / kospi -> 1 + kosdaq -> 2 + konex -> 4")
+        print("plese set three argument :: Present(P), Expect(E) / year / kospi -> 1 + kosdaq -> 2 + konex -> 4")
