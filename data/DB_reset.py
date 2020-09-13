@@ -10,7 +10,7 @@ KONEX = 4
 def Reset_DB(sector):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         DROP TABLE IF EXISTS Kospi_info;
           """)
@@ -30,7 +30,7 @@ def Reset_DB(sector):
         
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         DROP TABLE IF EXISTS Kosdaq_info;
           """)
@@ -50,7 +50,7 @@ def Reset_DB(sector):
     
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         DROP TABLE IF EXISTS Konex_info;
           """)
@@ -73,7 +73,7 @@ def Reset_DB(sector):
 def Create_DB(sector):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kospi_info` (
         `Name`	VARCHAR(25) NOT NULL,
@@ -174,7 +174,7 @@ def Create_DB(sector):
     
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Kosdaq_info` (
         `Name`	VARCHAR(25) NOT NULL,
@@ -272,7 +272,7 @@ def Create_DB(sector):
         con.commit()
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         cursor.execute("""
         CREATE TABLE IF NOT EXISTS `Konex_info` (
         `Name`	VARCHAR(25) NOT NULL,

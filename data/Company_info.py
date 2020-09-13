@@ -17,7 +17,7 @@ def Insert_DB_info(sector):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
     """kospi"""
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         data = []
         kospi_stocks = GS.download_stock_codes('kospi')
         for i in range(len(kospi_stocks)):
@@ -28,7 +28,7 @@ def Insert_DB_info(sector):
     """kosdaq"""
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         data = []
         kosdaq_stocks = GS.download_stock_codes('kosdaq')
         for i in range(len(kosdaq_stocks)):
@@ -40,7 +40,7 @@ def Insert_DB_info(sector):
     """konex"""
     sector /= 2
     sector = int(sector)
-    if (sector % 2 is 1):
+    if (sector % 2 == 1):
         data = []
         konex_stocks = GS.download_stock_codes('konex')
         for i in range(len(konex_stocks)):
