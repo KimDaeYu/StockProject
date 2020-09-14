@@ -1,3 +1,11 @@
+﻿package install
+    pip install beautifulsoup4
+    pip install mysql
+    pip install cryptography
+    pip install pandas
+    pip install lxml
+
+
 2020-06-03
     DONE
         git활성화
@@ -70,4 +78,8 @@
     
     https://7stocks.tistory.com/66
 
-        
+2020-09-13
+    mysql server connect
+	https://zetawiki.com/wiki/MySQL_%EC%9B%90%EA%B2%A9_%EC%A0%91%EC%86%8D	
+        CREATE USER 'root'@'%' IDENTIFIED BY '12345678';
+        GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';

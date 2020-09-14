@@ -15,7 +15,7 @@ KONEX = 4
 
 def Insert_DB_info(sector):
     con = Connect_DB()
-    cursor = con.cursor(pymysql.cursors.DictCursor)
+    # cursor = con.cursor(pymysql.cursors.DictCursor)
     """kospi"""
     if (sector % 2 == 1):
         data = []
