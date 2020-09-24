@@ -83,3 +83,11 @@
 	https://zetawiki.com/wiki/MySQL_%EC%9B%90%EA%B2%A9_%EC%A0%91%EC%86%8D	
         CREATE USER 'root'@'%' IDENTIFIED BY '12345678';
         GRANT ALL PRIVILEGES ON *.* TO 'root'@'%';
+
+2020-09-14
+    paperspace 개발환경 구축완료 
+    백테스트킹 라이브러리 찾음 3.7이상 추가적인 테스트 필요
+    
+    판다스 기능
+        https://nittaku.tistory.com/113
+    
