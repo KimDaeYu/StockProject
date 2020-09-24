@@ -240,19 +240,18 @@ def Insert_DB_exp_invest(parayear,sector):
                 (i['Code'], year + "%")
             )
             recent_data = cursor.fetchall()
+            cursor.execute(
+                "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kospi_Afinance WHERE Code = %s AND Date like %s",
+                (i['Code'], str(parayear-1) + "%")
+            )
+            recent_data2 = cursor.fetchall()
             if (len(recent_data) != 0):
-                if (recent_data[0][1] == "0" or recent_data[0][1] == "\xa0"):
-                    year =  str(int(year) - 1)
-                    cursor.execute(
-                        "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kospi_Afinance WHERE Code = %s AND Date like %s",
-                        (i['Code'], year + "%")
-                        )
-                    recent_data2 = cursor.fetchall()
+                recent_data[0] = list(recent_data[0].values())
+                if(recent_data[0][1] == "\xa0"):
                     recent_data2[0] = list(recent_data2[0].values())
                     if (recent_data2[0][1] == "0" or recent_data2[0][1] == "\xa0"):
                         print("Value error : have not data (pass)")
                         continue
-                    recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
                     totalnum = int(recent_data[0][1].replace(',', ''))
@@ -262,10 +261,10 @@ def Insert_DB_exp_invest(parayear,sector):
                 kospi_record.append(record)
                 del(temp)
                 if(num % execute_size == execute_size-1):
-                    cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
+                    cursor.executemany("INSERT INTO Kospi_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
                     kospi_record = []
                     con.commit()
-        cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
+        cursor.executemany("INSERT INTO Kospi_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
         con.commit()
 
     sector /= 2
@@ -285,21 +284,23 @@ def Insert_DB_exp_invest(parayear,sector):
             price = int(record[2].replace(',', ''))
             cursor.execute(
                 "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kosdaq_Afinance WHERE Code = %s AND Date like %s",
-                (i[1], year + "%")
+                (i['Code'], year + "%")
             )
             recent_data = cursor.fetchall()
+            
+            cursor.execute(
+                "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kosdaq_Afinance WHERE Code = %s AND Date like %s",
+                (i['Code'], str(parayear-1) + "%")
+            )
+            recent_data2 = cursor.fetchall()
+            
             if (len(recent_data) != 0):
-                if (recent_data[0][1] == "0" or recent_data[0][1] == "\xa0"):
-                    year = str(int(year)-1)
-                    cursor.execute(
-                        "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Kosdaq_Afinance WHERE Code = %s AND Date like %s",
-                        (i[1], year + "%")
-                        )
-                    recent_data2 = cursor.fetchall()
+                recent_data[0] = list(recent_data[0].values())
+                if(recent_data[0][1] == "\xa0"):
                     recent_data2[0] = list(recent_data2[0].values())
-                    if(recent_data2[0][1] == "0" or recent_data2[0][1] == "\xa0"):
+                    if (recent_data2[0][1] == "0" or recent_data2[0][1] == "\xa0"):
+                        print("Value error : have not data (pass)")
                         continue
-                    recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
                     totalnum = int(recent_data[0][1].replace(',', ''))
@@ -309,11 +310,11 @@ def Insert_DB_exp_invest(parayear,sector):
                 kosdaq_record.append(record)
                 del(temp)
                 if(num % execute_size == execute_size-1):
-                    cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
+                    cursor.executemany("INSERT INTO Kosdaq_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
                     kosdaq_record = []
                     con.commit()
 
-        cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
+        cursor.executemany("INSERT INTO Kosdaq_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
         con.commit()
 
     sector /= 2
@@ -333,21 +334,23 @@ def Insert_DB_exp_invest(parayear,sector):
             price = int(record[2].replace(',', ''))
             cursor.execute(
                 "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Konex_Afinance WHERE Code = %s AND Date like %s",
-                (i["Code"], year + "%")
+                (i['Code'], year + "%")
             )
             recent_data = cursor.fetchall()
+
+            cursor.execute(
+                "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Konex_Afinance WHERE Code = %s AND Date like %s",
+                (i['Code'], str(parayear-1) + "%")
+            )
+            recent_data2 = cursor.fetchall()
+
             if (len(recent_data) != 0):
-                if (recent_data[0][1] == "0" or recent_data[0][1] == "\xa0"):
-                    year = str(int(year)-1)
-                    cursor.execute(
-                        "SELECT NetIncome, NumOutstandingShares,TotalAsset, TotalDebt,SalesAccount FROM Konex_Afinance WHERE Code = %s AND Date like %s",
-                        (i[1], year + "%")
-                    )
-                    recent_data2 = cursor.fetchall()
+                recent_data[0] = list(recent_data[0].values())
+                if(recent_data[0][1] == "\xa0"):
                     recent_data2[0] = list(recent_data2[0].values())
                     if (recent_data2[0][1] == "0" or recent_data2[0][1] == "\xa0"):
+                        print("Value error : have not data (pass)")
                         continue
-                    recent_data[0] = recent_data2[0]
                     totalnum = int(recent_data2[0][1].replace(',', ''))
                 else:
                     totalnum = int(recent_data[0][1].replace(',', ''))
@@ -357,11 +360,11 @@ def Insert_DB_exp_invest(parayear,sector):
                 konex_record.append(record)
                 del(temp)
                 if(num % execute_size == execute_size-1):
-                    cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
+                    cursor.executemany("INSERT INTO Konex_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
                     konex_record = []
                     con.commit()
                 
-        cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
+        cursor.executemany("INSERT INTO Konex_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
         con.commit()
     con.close()
 
