@@ -8,7 +8,7 @@ from DB_setting import *
 
 def Get_invest_csv(sector = 7, expect = 'P', date = 2020):
     con = Connect_DB()
-    path = str(os.path.abspath(__file__))[:-17] + "execl/" + str(date) + '_'
+    path = str(os.path.abspath(__file__))[:-23] + "execl/" + str(date) + '_'
     if (sector % 2 == 1):
         sql="select * from "
         if(expect == "E"):
