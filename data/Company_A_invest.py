@@ -106,6 +106,8 @@ def Insert_DB_invest(parayear, sector):
                     cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
                     kospi_record = []
                     con.commit()
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Kospi_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
         con.commit()
 
@@ -155,7 +157,8 @@ def Insert_DB_invest(parayear, sector):
                     cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
                     kosdaq_record = []
                     con.commit()
-
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Kosdaq_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
         con.commit()
 
@@ -204,7 +207,8 @@ def Insert_DB_invest(parayear, sector):
                     cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
                     konex_record = []
                     con.commit()
-
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Konex_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
         con.commit()
     con.close()
@@ -264,6 +268,8 @@ def Insert_DB_exp_invest(parayear,sector):
                     cursor.executemany("INSERT INTO Kospi_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
                     kospi_record = []
                     con.commit()
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Kospi_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kospi_record)
         con.commit()
 
@@ -313,7 +319,8 @@ def Insert_DB_exp_invest(parayear,sector):
                     cursor.executemany("INSERT INTO Kosdaq_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
                     kosdaq_record = []
                     con.commit()
-
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Kosdaq_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",kosdaq_record)
         con.commit()
 
@@ -363,7 +370,8 @@ def Insert_DB_exp_invest(parayear,sector):
                     cursor.executemany("INSERT INTO Konex_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)
                     konex_record = []
                     con.commit()
-                
+            else:
+                print("No data!!")
         cursor.executemany("INSERT INTO Konex_exp_invest_info VALUES(%s,%s,%s,%s,%s,%s,%s)",konex_record)     
         con.commit()
     con.close()
