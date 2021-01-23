@@ -7,7 +7,7 @@ KOSPI = 1
 KOSDAQ = 2
 KONEX = 4
 
-def Reset_DB(sector, term):
+def Reset_finance_DB(sector, term):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
     if (sector % 2 == 1):
@@ -47,7 +47,7 @@ def Reset_DB(sector, term):
     con.close()
     
     
-def Create_DB(sector):
+def Create_finance_DB(sector, term):
     con = Connect_DB()
     cursor = con.cursor(pymysql.cursors.DictCursor)
     if (sector % 2 == 1):
@@ -260,11 +260,11 @@ if __name__ == "__main__":
         print("plese set two argument :: Annual(A), Quarter(Q) / kospi -> 1 + kosdaq -> 2 + konex -> 4")
     elif(len(sys.argv) == 3):
         if(sys.argv[1] == 'A' or sys.argv[1] == 'Annual'):
-            Reset_DB(int(sys.argv[1]),0)
-            Create_DB(int(sys.argv[1]),0)
+            Reset_finance_DB(int(sys.argv[2]),0)
+            Create_finance_DB(int(sys.argv[2]),0)
         if(sys.argv[1] == 'Q' or sys.argv[1] == 'Quarter'):
-            Reset_DB(int(sys.argv[1]),1)
-            Create_DB(int(sys.argv[1]),1)
+            Reset_finance_DB(int(sys.argv[2]),1)
+            Create_finance_DB(int(sys.argv[2]),1)
     else:
         print("plese set two argument :: Annual(A), Quarter(Q) / kospi -> 1 + kosdaq -> 2 + konex -> 4")
 

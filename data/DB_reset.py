@@ -151,24 +151,34 @@ def Create_DB(sector):
         `DividendYieldRatio`	TEXT
             );""")
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Kospi_invest_info` (
-        `Name`	VARCHAR(25) NOT NULL,
-        `Code`	VARCHAR(10) NOT NULL,
-        `Price`	TEXT,
-        `PER`	TEXT,
-        `PBR`	TEXT,
-        `PSR`	TEXT,
-        `Year`  TEXT
+            CREATE TABLE IF NOT EXISTS `Kospi_Ainvest_info` (
+            `Name`	VARCHAR(25) NOT NULL,
+            `Code`	VARCHAR(10) NOT NULL,
+            `Price`	TEXT,
+            `PER`	TEXT,
+            `PBR`	TEXT,
+            `PSR`	TEXT,
+            `Date`  TEXT,
+            `YoY`   TEXT,
+            `EYoY`   TEXT,
+            `State`   TEXT,
+            `reg_date` DATETIME
            );  """)
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Kospi_exp_invest_info` (
-        `Name`	VARCHAR(25) NOT NULL,
-        `Code`	VARCHAR(10) NOT NULL,
-        `Price`	TEXT,
-        `PER`	TEXT,
-        `PBR`	TEXT,
-        `PSR`	TEXT,
-        `Year`  TEXT
+            CREATE TABLE IF NOT EXISTS `Kospi_Qinvest_info` (
+            `Name`	VARCHAR(25) NOT NULL,
+            `Code`	VARCHAR(10) NOT NULL,
+            `Price`	TEXT,
+            `PER`	TEXT,
+            `PBR`	TEXT,
+            `PSR`	TEXT,
+            `Date`  TEXT,
+            `YoY`   TEXT,
+            `QoQ`   TEXT,
+            `EYoY`   TEXT,
+            `EQoQ`   TEXT,
+            `State`   TEXT,
+            `reg_date` DATETIME
             );  """)
         con.commit()
     
@@ -250,25 +260,35 @@ def Create_DB(sector):
         `DividendYieldRatio`	TEXT
          );""")       
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Kosdaq_invest_info` (
+        CREATE TABLE IF NOT EXISTS `Kosdaq_Ainvest_info` (
         `Name`	VARCHAR(25) NOT NULL,
         `Code`	VARCHAR(10) NOT NULL,
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
         `PSR`	TEXT,
-        `Year`  TEXT
-         ); """)
+        `Date`  TEXT,
+        `YoY`   TEXT,
+        `EYoY`   TEXT,
+        `State`   TEXT,
+        `reg_date` DATETIME
+           );  """)
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Kosdaq_exp_invest_info` (
+        CREATE TABLE IF NOT EXISTS `Kosdaq_Qinvest_info` (
         `Name`	VARCHAR(25) NOT NULL,
-         `Code`	VARCHAR(10) NOT NULL,
+        `Code`	VARCHAR(10) NOT NULL,
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
         `PSR`	TEXT,
-        `Year`  TEXT
-          ); """)
+        `Date`  TEXT,
+        `YoY`   TEXT,
+        `QoQ`   TEXT,
+        `EYoY`   TEXT,
+        `EQoQ`   TEXT,
+        `State`   TEXT,
+        `reg_date` DATETIME
+            );  """)
         con.commit()
     sector /= 2
     sector = int(sector)
@@ -348,27 +368,38 @@ def Create_DB(sector):
         `DividendYieldRatio`	TEXT
           );""")     
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Konex_invest_info` (
+        CREATE TABLE IF NOT EXISTS `Konex_Ainvest_info` (
         `Name`	VARCHAR(25) NOT NULL,
         `Code`	VARCHAR(10) NOT NULL,
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
         `PSR`	TEXT,
-        `Year`  TEXT
-         ); """)
+        `Date`  TEXT,
+        `YoY`   TEXT,
+        `EYoY`   TEXT,
+        `State`   TEXT,
+        `reg_date` DATETIME
+           );  """)
         cursor.execute("""
-        CREATE TABLE IF NOT EXISTS `Konex_exp_invest_info` (
+        CREATE TABLE IF NOT EXISTS `Konex_Qinvest_info` (
         `Name`	VARCHAR(25) NOT NULL,
         `Code`	VARCHAR(10) NOT NULL,
         `Price`	TEXT,
         `PER`	TEXT,
         `PBR`	TEXT,
         `PSR`	TEXT,
-        `Year`  TEXT
-         ); """)
+        `Date`  TEXT,
+        `YoY`   TEXT,
+        `QoQ`   TEXT,
+        `EYoY`   TEXT,
+        `EQoQ`   TEXT,
+        `State`   TEXT,
+        `reg_date` DATETIME
+            );  """)
         con.commit()
     con.close()
+
 
 
 if __name__ == "__main__":
