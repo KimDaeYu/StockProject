@@ -16,8 +16,8 @@ class StockFinance:
         self.data = self.res.read()
         self.soup = BeautifulSoup(self.data, 'html.parser')
         self.Price = {}
-        self.D_Y = {}
-        self.D_A = {}
+        self.D_Y = {} #연간
+        self.D_A = {} #분기
         self.B_Y = {}
         self.B_A = {}
 
@@ -154,7 +154,8 @@ class StockFinance:
             print(self.data)
 
 if __name__ == "__main__":
-    temp = StockFinance("092730")
-    #temp.D_NetQuarterFinance()
+    temp = StockFinance("001360")
+    temp.D_NetQuarterFinance()
     temp.getPrice()
+    print(temp.D_A)
     #temp.SaveFileD_A()

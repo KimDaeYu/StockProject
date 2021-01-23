@@ -51,7 +51,7 @@ def Insert_DB_Qfinance(sector):
         data = []
         for num ,i in enumerate(kosdaq):
             print("KOSDAQ : [{} / {}] {}".format(num+1, len(kosdaq), i["Code"]))
-            temp = GF.StockFinance(i[1])
+            temp = GF.StockFinance(i["Code"])
             temp.D_NetQuarterFinance()
             for j in temp.D_A:
                 record = [i['Name'], i['Code'], j]
