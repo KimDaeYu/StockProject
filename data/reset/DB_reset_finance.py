@@ -1,7 +1,8 @@
 import sys
 
 import pymysql
-from DB_setting import *
+from DB_reset import Create_DB
+from DB_setting import Connect_DB
 
 KOSPI = 1
 KOSDAQ = 2
