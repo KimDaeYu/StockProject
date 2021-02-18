@@ -5,21 +5,49 @@ import gzip
 import sys
 sys.setrecursionlimit(100000)
 
-class StockFinance:
 
+import asyncio
+import aiohttp
+import html5lib
+
+# class mtest:
+#     def __init__(self,code):
+#         self.wws = 
+#         self.loop = asyncio.get_event_loop()
+
+#     def get_ticks(self):
+#         return self.loop.run_until_complete(self.__async__get_ticks())
+
+#     async def __async__get_ticks(self):
+#         async with self.wws as echo:
+#             await echo.send(json.dumps({'ticks_history': 'R_50', 'end': 'latest', 'count': 1}))
+#             return await echo.receive()
+
+
+async def fetch_url_aiohttp(url):
+    return aiohttp.request('get', url)
+
+
+class StockFinance:
     def __init__(self,code):
+        self.loop = asyncio.get_event_loop()
         self.URL_PART1 = "https://comp.fnguide.com/SVO2/asp/SVD_Main.asp?pGB=1&gicode=A"
         self.Stock_CODE = code
         self.URL_PART2 = "&cID=&MenuYn=Y&ReportGB=&NewMenuID=101&stkGb=701"
         self.URL_TPL = self.URL_PART1 + self.Stock_CODE + self.URL_PART2
-        self.res = urllib.request.urlopen(self.URL_TPL)
-        self.data = self.res.read()
-        self.soup = BeautifulSoup(self.data, 'html.parser')
+        self.data = ""
+        self.res = asyncio.wait(fetch_url_aiohttp(self.URL_TPL))
+        print(self.data)
+        self.soup = BeautifulSoup(self.data.decode('utf-8'), 'html5lib')
         self.Price = {}
         self.D_Y = {} #연간
         self.D_A = {} #분기
         self.B_Y = {}
         self.B_A = {}
+
+    def get_ticks(self):
+        return self.loop.run_until_complete(self.__async__get_ticks())
+
 
     def getPrice(self):
         self.Pricetag = self.soup.find("div", {"id": "svdMainGrid1", "class": "um_table"})
@@ -153,9 +181,18 @@ class StockFinance:
             self.data = pickle.load(f)
             print(self.data)
 
+            
+
+
+            
 if __name__ == "__main__":
-    temp = StockFinance("001360")
-    temp.D_NetQuarterFinance()
-    temp.getPrice()
-    print(temp.D_A)
+    tt = ["001360","001360","001360","001360","001360","001360","001360"]
+    tasks = [StockFinance(x) for x in tt]
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(tasks))
+    print('done')
+    # temp = StockFinance("001360")
+    # temp.D_NetQuarterFinance()
+    # temp.getPrice()
+    # print(temp.D_A)
     #temp.SaveFileD_A()

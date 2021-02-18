@@ -10,3 +10,9 @@ pip install pymysql
 
 pip install finance-datareader
 pip install slacker
+
+pip install --upgrade ta
+pip install plotly==4.14.3
+pip install pykrx
+
+pip install trading-calendars

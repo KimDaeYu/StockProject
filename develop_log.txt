@@ -103,6 +103,20 @@
     TODO
         
 2020-01-23
-    Get_ratio 함수 양음수에 따른 정확한 값 확인 ex 음 음 -> 양
+    Get_ratio 함수 양음수에 따른 정확한 값 확인 ex) 음 음 -> 양
+    >>수정함
+    
+    kospi
+    데이터 없는 것들 별도로 구할수 있도록 해야함(have not data!!)
+    
+    A_invest구현필요
+    
+2020-02-06
+    chart 데이터 수집 
+    https://technical-analysis-library-in-python.readthedocs.io/en/latest/ta.html?highlight=sma#ta.trend.sma_indicator
+    
+    plotly
+    https://plotly.com/python/subplots/
+    https://plotly.com/python/text-and-annotations/
         
     

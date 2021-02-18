@@ -1,0 +1,9 @@
+https://niceman.tistory.com/145
+
+pip install aiodns
+??
+
+
+파싱 속도가 중요
+
+https://myjamong.tistory.com/43

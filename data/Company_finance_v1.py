@@ -3,8 +3,9 @@ import sys
 import pymysql
 from DB_setting import *
 
-import GetFinancialStatements as GF
+import GetFinancialStatements_v1 as GF
 import GetStockInfo as GS
+import time
 
 KOSPI = 1
 KOSDAQ = 2
@@ -164,8 +165,12 @@ if __name__ == "__main__":
         print("plese set two argument :: Annual(A), Quarter(Q) / kospi -> 1 + kosdaq -> 2 + konex -> 4")
     elif(len(sys.argv) == 3):
         if(sys.argv[1] == 'A' or sys.argv[1] == 'Annual'):
+
             Insert_DB_Afinance(int(sys.argv[2]))
+
         if(sys.argv[1] == 'Q' or sys.argv[1] == 'Quarter'):
+            start_time = time.time()
             Insert_DB_Qfinance(int(sys.argv[2]))
+            print("실행 시간 : %s초" % (time.time() - start_time))
     else:
         print("plese set two argument :: Annual(A), Quarter(Q) / kospi -> 1 + kosdaq -> 2 + konex -> 4")

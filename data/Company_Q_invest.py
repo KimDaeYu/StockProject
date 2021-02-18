@@ -18,25 +18,25 @@ KONEX = 4
 execute_size = 100
 
 def Get_invest_indicators(recent_data, totalnum, price, date):
-    # print(recent_data)
+    #print(recent_data)
     # print(price)
     # PER
     record = [None for i in range(4)]
     if (recent_data[0] != "\xa0"):
         if (recent_data[0] != "0" or totalnum == 0):
-            PER = float(price / float(int(recent_data[0].replace(',', '')) * 100000 / totalnum))
+            PER = float(price / (float(recent_data[0].replace(',', '')) * 100000 / totalnum))
             record[0] = str(round(PER, 2))
 
     # PBR
     if (recent_data[2] != "\xa0" and recent_data[3] != "\xa0"):
         if (recent_data[2] != recent_data[3]):
-            PBR = float(price / float((int(recent_data[2].replace(',', '')) - int(recent_data[3].replace(',', ''))) * 100000 / totalnum))
+            PBR = float(price / ((float(recent_data[2].replace(',', '')) - int(recent_data[3].replace(',', ''))) * 100000 / totalnum))
             record[1] = str(round(PBR, 2))
 
     # PSR
     if (recent_data[4] != "\xa0"):
         if (recent_data[4] != "0"):
-            PSR = float(price / float(int(recent_data[4].replace(',', '')) * 100000 / totalnum))
+            PSR = float(price / (float(recent_data[4].replace(',', '')) * 100000 / totalnum))
             record[2] = str(round(PSR, 2))
 
     # Year
@@ -57,7 +57,7 @@ def Get_ratio(finance):
     if(finance[-5][7] != "\xa0"):  #보안필요
         if(finance[-5][7] == "0"):
             finance[-5][7] = "1"
-        YOY = (float(int(finance[-1][7].replace(',', ''))) - float(int(finance[-5][7].replace(',', '')))) / abs(float(int(finance[-5][7].replace(',', ''))))
+        YOY = (float(finance[-1][7].replace(',', '')) - float(finance[-5][7].replace(',', ''))) / abs(float(float(finance[-5][7].replace(',', ''))))
         record[0] = str(round(YOY * 100, 2))
         if(int(finance[-5][7].replace(',', '')) <= 0):
             record[1] = "R"
@@ -72,7 +72,7 @@ def Get_ratio(finance):
     if(finance[-2][7] != "\xa0"):
         if(finance[-2][7] == "0"):
             finance[-2][7] = "1"
-        QoQ = (float(int(finance[-1][7].replace(',', ''))) - float(int(finance[-2][7].replace(',', '')))) / abs(float(int(finance[-2][7].replace(',', ''))))
+        QoQ = (float(finance[-1][7].replace(',', '')) - float(finance[-2][7].replace(',', ''))) / abs(float(float(finance[-2][7].replace(',', ''))))
         record[2] = str(round(QoQ * 100, 2))
         if(int(finance[-2][7].replace(',', '')) <= 0):
             record[3] = "R"
@@ -102,7 +102,7 @@ def Get_Eratio(finance, finance_E):
     if(finance[-5][7] != "\xa0"):  #보안필요
         if(finance[-5][7] == "0"):
             finance[-5][7] = "1"
-        YOY = (float(int(finance[-1][7].replace(',', ''))) - float(int(finance[-5][7].replace(',', '')))) / abs(float(int(finance[-5][7].replace(',', ''))))
+        YOY = (float(finance[-1][7].replace(',', '')) - float(finance[-5][7].replace(',', ''))) / abs(float(int(finance[-5][7].replace(',', ''))))
         record[0] = str(round(YOY * 100, 2))
         if(int(finance[-5][7].replace(',', '')) <= 0):
             record[1] = "R"
@@ -117,7 +117,7 @@ def Get_Eratio(finance, finance_E):
     if(finance[-2][7] != "\xa0"):
         if(finance[-2][7] == "0"):
             finance[-2][7] = "1"
-        QoQ = (float(int(finance[-1][7].replace(',', ''))) - float(int(finance[-2][7].replace(',', '')))) / abs(float(int(finance[-2][7].replace(',', ''))))
+        QoQ = (float(finance[-1][7].replace(',', '')) - float(finance[-2][7].replace(',', ''))) / abs(float(int(finance[-2][7].replace(',', ''))))
         record[2] = str(round(QoQ * 100, 2))
         
         if(int(finance[-2][7].replace(',', '')) <= 0):
@@ -134,7 +134,7 @@ def Get_Eratio(finance, finance_E):
     if(finance_E[0][7] != "\xa0" and finance[-4][7] != "\xa0"):
         if(finance[-4][7] == "0"):
             finance[-4][7] = "1"
-        EYoY = (float(int(finance_E[0][7].replace(',', ''))) - float(int(finance[-4][7].replace(',', '')))) / abs(float(int(finance[-4][7].replace(',', ''))))
+        EYoY = (float(finance_E[0][7].replace(',', '')) - float(finance[-4][7].replace(',', ''))) / abs(float(int(finance[-4][7].replace(',', ''))))
         record[4] = str(round(EYoY * 100, 2))
         
         if(int(finance[-4][7].replace(',', '')) <= 0):
@@ -147,9 +147,9 @@ def Get_Eratio(finance, finance_E):
             record[5] += "B"
     #EQoQ
     if(finance_E[0][7] != "\xa0" and finance[-1][7] != "\xa0"):
-        if(finance_E[-1][7] == "0"):
-            finance_E[-1][7] = "1"
-        EQoQ = (float(int(finance_E[0][7].replace(',', ''))) - float(int(finance[-1][7].replace(',', '')))) / abs(float(int(finance[-1][7].replace(',', ''))))
+        if(finance[-1][7] == "0"):
+            finance[-1][7] = "1"
+        EQoQ = (float(finance_E[0][7].replace(',', '')) - float(finance[-1][7].replace(',', ''))) / abs(float(int(finance[-1][7].replace(',', ''))))
         record[6] = str(round(EQoQ * 100, 2))
         
         if(int(finance[-1][7].replace(',', '')) <= 0):
@@ -195,10 +195,11 @@ def Insert_DB_invest(sector):
         #print(df)
 
         for num , i in enumerate(kospi):
-            # if(num < 798):
+            # if(num > 50):
+            #     return
             #     continue
-            # if(i["Code"] != "001040"):
-            #     continue
+            # if(i["Code"] != "000390"):
+            #      continue
             print("[{} / {}] {}".format(num + 1, len(kospi), i["Code"]))
             price_df = fdr.DataReader(i["Code"],now)
             try:
@@ -210,10 +211,10 @@ def Insert_DB_invest(sector):
             record.extend(" ")
             record[2] = str(price)
             # print(record)
-            
+
             code_df = finance_df[finance_df['Code'].str.contains(i["Code"])]
-            rs_df = code_df[~code_df['Date'].str.contains("\(E\)")]
-            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)")]
+            rs_df = code_df[~code_df['Date'].str.contains("\(E\)") & ~code_df['Date'].str.contains("\(P\)")]
+            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)") | code_df['Date'].str.contains("\(P\)")]
             
             #print(rs_df.values,df_flag,df_Eflag)
             if (len(rs_df) != 0):    #데이터가 없음
@@ -227,15 +228,21 @@ def Insert_DB_invest(sector):
                 else:
                     totalnum = int(rs_df.values[-1][3].replace(',', ''))
 
-                    
-                #예상치 결측 문제 없다면 실적발표 값으로 설정 # 2:NetIncome 4:TotalAsset 5:TotalDebt
-                if (rs_df2.values[0][2] == "\xa0" or (rs_df2.values[0][4] == "\xa0" and rs_df2.values[0][5])):
+
+                #예상치 결측 문제 없다면 실적발표 값으로 설정
+                #Code Date NetIncome NumOutstandingShares 
+                #TotalAsset TotalDebt SalesAccount OperatingProfit
+                if (rs_df2.values[0][2] == "\xa0" or rs_df2.values[0][6] == "\xa0"):
                     # 결측임
                     record[len(record):] = Get_invest_indicators(rs_df.values[-1][2:], totalnum, price, rs_df.values[-1][1])
                     
                 else:
+                    # 총자산 총부채만 지난 데이터로 사용
                     # print("Value error : finance_value : trying last year")
-                    record[len(record):] = Get_invest_indicators(rs_df2.values[0][2:], totalnum, price, rs_df2.values[0][1])
+                    temp = list(rs_df2.values[0][2:4])
+                    temp += list(rs_df.values[-1][4:6])
+                    temp += list(rs_df2.values[0][6:])
+                    record[len(record):] = Get_invest_indicators(temp, totalnum, price, rs_df2.values[0][1])
 
                 #print(rs_df2.values)
                 #YoY QoQ EYoY EQoQ 계산 7:OperatingProfit
@@ -284,8 +291,8 @@ def Insert_DB_invest(sector):
             # print(record)
             
             code_df = finance_df[finance_df['Code'].str.contains(i["Code"])]
-            rs_df = code_df[~code_df['Date'].str.contains("\(E\)")]
-            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)")]
+            rs_df = code_df[~code_df['Date'].str.contains("\(E\)") & ~code_df['Date'].str.contains("\(P\)")]
+            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)") | code_df['Date'].str.contains("\(P\)")]
             
             # print(rs_df.values)
             # print(len(rs_df))
@@ -300,15 +307,20 @@ def Insert_DB_invest(sector):
                 else:
                     totalnum = int(rs_df.values[-1][3].replace(',', ''))
 
-                    
-                #예상치 결측 문제 없다면 실적발표 값으로 설정 # 2:NetIncome 4:TotalAsset 5:TotalDebt
-                if (rs_df2.values[0][2] == "\xa0" or (rs_df2.values[0][4] == "\xa0" and rs_df2.values[0][5])):
+                #예상치 결측 문제 없다면 실적발표 값으로 설정
+                #Code Date NetIncome NumOutstandingShares 
+                #TotalAsset TotalDebt SalesAccount OperatingProfit
+                if (rs_df2.values[0][2] == "\xa0" or rs_df2.values[0][6] == "\xa0"):
                     # 결측임
                     record[len(record):] = Get_invest_indicators(rs_df.values[-1][2:], totalnum, price, rs_df.values[-1][1])
                     
                 else:
+                    # 총자산 총부채만 지난 데이터로 사용
                     # print("Value error : finance_value : trying last year")
-                    record[len(record):] = Get_invest_indicators(rs_df2.values[0][2:], totalnum, price, rs_df2.values[0][1])
+                    temp = list(rs_df2.values[0][2:4])
+                    temp += list(rs_df.values[-1][4:6])
+                    temp += list(rs_df2.values[0][6:])
+                    record[len(record):] = Get_invest_indicators(temp, totalnum, price, rs_df2.values[0][1])
 
                 #print(rs_df2.values)
                 #YoY QoQ EYoY EQoQ 계산 7:OperatingProfit
@@ -356,8 +368,8 @@ def Insert_DB_invest(sector):
             # print(record)
             
             code_df = finance_df[finance_df['Code'].str.contains(i["Code"])]
-            rs_df = code_df[~code_df['Date'].str.contains("\(E\)")]
-            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)")]
+            rs_df = code_df[~code_df['Date'].str.contains("\(E\)") & ~code_df['Date'].str.contains("\(P\)")]
+            rs_df2 = code_df[code_df['Date'].str.contains("\(E\)") | code_df['Date'].str.contains("\(P\)")]
             
             # print(rs_df.values)
             # print(len(rs_df))
@@ -372,15 +384,20 @@ def Insert_DB_invest(sector):
                 else:
                     totalnum = int(rs_df.values[-1][3].replace(',', ''))
 
-                    
-                #예상치 결측 문제 없다면 실적발표 값으로 설정 # 2:NetIncome 4:TotalAsset 5:TotalDebt
-                if (rs_df2.values[0][2] == "\xa0" or (rs_df2.values[0][4] == "\xa0" and rs_df2.values[0][5])):
+                #예상치 결측 문제 없다면 실적발표 값으로 설정
+                #Code Date NetIncome NumOutstandingShares 
+                #TotalAsset TotalDebt SalesAccount OperatingProfit
+                if (rs_df2.values[0][2] == "\xa0" or rs_df2.values[0][6] == "\xa0"):
                     # 결측임
                     record[len(record):] = Get_invest_indicators(rs_df.values[-1][2:], totalnum, price, rs_df.values[-1][1])
                     
                 else:
+                    # 총자산 총부채만 지난 데이터로 사용
                     # print("Value error : finance_value : trying last year")
-                    record[len(record):] = Get_invest_indicators(rs_df2.values[0][2:], totalnum, price, rs_df2.values[0][1])
+                    temp = list(rs_df2.values[0][2:4])
+                    temp += list(rs_df.values[-1][4:6])
+                    temp += list(rs_df2.values[0][6:])
+                    record[len(record):] = Get_invest_indicators(temp, totalnum, price, rs_df2.values[0][1])
 
                 #print(rs_df2.values)
                 #YoY QoQ EYoY EQoQ 계산 7:OperatingProfit
