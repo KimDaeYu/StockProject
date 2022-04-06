@@ -20,7 +20,6 @@ answer = 0
 idx = 0
 
 
-
 while(N > 0):
   print(visit)
   for i in range(len(visit)):
