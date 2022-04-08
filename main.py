@@ -14,6 +14,7 @@ edgesize.sort()
 answer = 0
 idx = 0
 
+
 while(N > 0):
     for i in range(N):
         if(visit[edgesize[i][1]] == 0):
