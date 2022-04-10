@@ -31,7 +31,6 @@ main_ui = uic.loadUiType("Pytrader.ui")[0]
 login_ui = uic.loadUiType("login.ui")[0]
 
 
-
 #login diagram
 # class LogInDialog(QDialog,login_ui):
 #     def __init__(self,parent=None):
